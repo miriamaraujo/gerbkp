@@ -56,3 +56,4 @@ else{
     header("Location: ../index.php");
     exit();
 }
+// It worked perfectly fine in my Microsoft Surface. I might have some issue with the mysql in my computer.
