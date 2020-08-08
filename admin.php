@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,12 +19,21 @@
 
 <body>
     <nav>
-        <div class="logo"><a href="index.html"> Ger's Garage</a></div>
+        <div class="logo"><a href="index.php"> Ger's Garage</a></div>
 
         <ul class="nav-links">
             <li><a>+353 1 6333444</a> </li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="login.html">Sign Up</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <?php
+                if (isset($_SESSION['userId'])) {
+                    
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                    echo '<li><a href="includes/logout.inc.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>';
+                } else {
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                }
+
+                ?>
             <li><a href="#" class="fa fa-facebook"></a>
                 <a href="#" class="fa fa-twitter"></a>
                 <a href="#" class="fa fa-instagram"></a></li>

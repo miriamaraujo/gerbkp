@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,12 +19,21 @@
 
 <body>
     <nav>
-        <div class="logo"><a href="index.html"> Ger's Garage</a></div>
+        <div class="logo"><a href="index.php"> Ger's Garage</a></div>
 
         <ul class="nav-links">
             <li><a>+353 1 6333444</a> </li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="login.html">Sign Up</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <?php
+            if (isset($_SESSION['userId'])) {
+
+                echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                echo '<li><a href="includes/logout.inc.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>';
+            } else {
+                echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+            }
+
+            ?>
             <li><a href="#" class="fa fa-facebook"></a>
                 <a href="#" class="fa fa-twitter"></a>
                 <a href="#" class="fa fa-instagram"></a></li>
@@ -35,61 +47,51 @@
 
     <div class="user-prof">
         <img src="img/p4.jpg" alt="" width="90px" style="border-radius: 50%;">
-        <h4>Pam Beesley</h4>
-        <a href="dashboard.html" class="home-btn"><i class="fa fa-home" aria-hidden="true"></i></a>
-        <a href="profile.html" class="profile-btn">My Profile</a>
-        <a href="newbooking.html" class="new-book">+ New Booking</a>
-        
+        <h4><?php echo  $_SESSION['userName'] ?></h4>
+        <a href="userdash.php" class="home-btn"><i class="fa fa-home" aria-hidden="true"></i></a>
+        <a href="profile.php" class="profile-btn">My Profile</a>
+        <a href="newbooking.php" class="new-book">+ New Booking</a>
+
     </div>
 
-
-    <h3>My Orders</h3>
+    <h3>My Profile</h3>
     <div class="flex-container">
-        <div class="order-box">
-            <h4>Flat Tyres</h4>
-            <p><b> Order Number:</b> 102</p>
-            <p><b>Status:</b> Booked</p>
-            <p><b>Booking Date: </b> 10/12/2021 <span>- Time: 13:30pm</span></p>
+        <div class="details" id="update-prof" style="text-align: center;">
+            <h4>Update Profile Details</h4>
+            <form action="#details">
+                <input type="text" placeholder="First Name">
+                <input type="text" placeholder="Last Name">
+                <input type="text" placeholder="New E-mail">
+                <input type="text" placeholder="New Phone 1">
+                <input type="text" placeholder="New Phone 2">
+                <input type="text" placeholder="New Address">
+                <input type="text" placeholder="Vehicle Type">
+                <input type="text" placeholder="Vehicle Make">
+                <input type="text" placeholder="Vehicle Engine">
+                <input type="text" placeholder="Booking Type">
+                <input type="submit" value="Save Details">
 
 
-            <button><a href="order-details.html">+ Details</a></button>
+            </form>
         </div>
-        <div class="order-box">
-            <h4>Overheating Engine</h4>
-            <p><b> Order Number:</b> 153</p>
-            <p><b>Status:</b> In Service</p>
-            <p><b>Booking Date: </b>10/12/2021 <span>- Time: 13:30pm</span></p>
 
 
-            <button><a href="order-details.html">+ Details</a></button>
-        </div>
-        <div class="order-box">
-            <h4>Windows Replacement</h4>
-            <p><b> Order Number:</b>  102</p>
-            <p><b>Status:</b> Booked</p>
-            <p><b>Booking Date: </b>10/12/2021 <span>- Time: 13:30pm</span></p>
 
-
-            <button><a href="order-details.html">+ Details</a></button>
-        </div>
-        <div class="order-box">
-            <h4>Car Wash and Polish</h4>
-            <p><b> Order Number:</b> 153</p>
-            <p><b>Status:</b> In Service</p>
-            <p><b>Booking Date: </b>10/12/2021 <span>- Time: 13:30pm</span></p>
-
-
-            <button><a href="order-details.html">+ Details</a></button>
-        </div>
 
     </div>
+
+
+
+
+
+
     <div class="footer">
         <h4>Sign-Up to be updated</h4>
 
         <div class="footer-container">
             <form action="">
                 <input type="text" placeholder="Name and Last Surname">
-                <input type="email" placeholder="E-mail">
+                <input type="text" placeholder="E-mail">
                 <button>Submit</button>
             </form>
         </div>
@@ -108,6 +110,7 @@
 
 
     </div>
+
     <script src="script.js"> </script>
 </body>
 

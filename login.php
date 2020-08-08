@@ -1,5 +1,6 @@
-
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,15 +18,22 @@
 </head>
 
 <body>
-
     <header>
         <nav>
-            <div class="logo"><a href="index.html">Ger's Garage</a></div>
-
+            <div class="logo"><a href="index.php">Ger's Garage</a></div>
             <ul class="nav-links">
                 <li><a>+353 1 6333444</a> </li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="login.html">Sign Up</a></li>
+                <li><a href="about.php">About Us</a></li>
+                <?php
+                if (isset($_SESSION['userId'])) {
+                    
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                    echo '<li><a href="includes/logout.inc.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>';
+                } else {
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                }
+
+                ?>
                 <li><a href="#" class="fa fa-facebook"></a>
                     <a href="#" class="fa fa-twitter"></a>
                     <a href="#" class="fa fa-instagram"></a></li>
@@ -36,11 +44,9 @@
                 <div class="line3"></div>
             </div>
         </nav>
-
         <div class="flex-container">
             <div class="flex-div">
                 <h3> Login here</h3>
-
                 <form action="includes/login.inc.php" method="POST">
                     <input type="email" name="umail" placeholder="E-mail">
                     <input type="password" name="pwd" placeholder="Password">
@@ -49,13 +55,9 @@
                         <input type="checkbox" name="remember" id="remember"><label for="remember">Remember me </label>
                     </div>
                 </form>
-
             </div>
-
             <div class="flex-div">
                 <h3>Create Account</h3>
-
-
                 <form action="includes/signup.inc.php" method="POST">
                     <input type="text" name="uname" placeholder="Username">
                     <input type="text" name="umail" placeholder="E-mail">
@@ -63,16 +65,10 @@
                     <input type="password" name="pwd-repeat" placeholder="Confirm password">
                     <input  type="submit" name="signup-submit" value="Create Account">
                 </form>
-
-
             </div>
-
         </div>
-
     </header>
-
     <script src="script.js"> </script>
-
 </body>
 
 </html>

@@ -1,5 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
+?>
+
+<!DOCTYPE html><html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -15,13 +18,22 @@
 </head>
 
 <body>
-    <nav>
-        <div class="logo"><a href="index.html"> Ger's Garage</a></div>
+<nav>
+        <div class="logo"><a href="index.php"> Ger's Garage</a></div>
 
         <ul class="nav-links">
             <li><a>+353 1 6333444</a> </li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="login.html">Sign Up</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <?php
+                if (isset($_SESSION['userId'])) {
+                    
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                    echo '<li><a href="includes/logout.inc.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>';
+                } else {
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                }
+
+                ?>
             <li><a href="#" class="fa fa-facebook"></a>
                 <a href="#" class="fa fa-twitter"></a>
                 <a href="#" class="fa fa-instagram"></a></li>
@@ -35,11 +47,15 @@
 
     <div class="user-prof">
         <img src="img/p4.jpg" alt="" width="90px" style="border-radius: 50%;">
-        <h4>Pam Beesley</h4>
-        <a href="dashboard.html" class="home-btn"><i class="fa fa-home" aria-hidden="true"></i></a>
-        <a href="profile.html" class="profile-btn">My Profile</a>
-        <a href="newbooking.html" class="new-book">+ New Booking</a>
-        
+        <?php
+        if (isset($_SESSION['userName'])) {
+            echo '<h4> ' . $_SESSION['userName'] . ' </h4>';
+        }
+        ?>
+        <a href="userdash.php" class="home-btn"><i class="fa fa-home" aria-hidden="true"></i></a>
+        <a href="profile.php" class="profile-btn">My Profile</a>
+        <a href="newbooking.php" class="new-book">+ New Booking</a>
+
     </div>
 
 
@@ -48,24 +64,24 @@
     <div class="flex-container">
         <div class="details">
             <h4>Flat Tyres</h4>
-            <p><b>Order Number:</b> 102</p>
-            <p><b>Status:</b> Booked</p>
-            <p><b>Booking Date: </b> 10/12/2021 <span>- Time: 13:30pm</span></p>
+            <p>Order Number: 102</p>
+            <p>Status: Booked</p>
+            <p>Booking Date: 10/12/2021 <span>- Time: 13:30pm</span></p>
             <br>
 
             <h4>More Details</h4>
-            <p><b>Car Make:</b> Ford</p>
-            <p><b>Car Model:</b> Ka</p>
-            <p><b>Engine Type:</b> Hybrid</p>
-            <p><b>Licence Details:</b> 102abc</p>
-            <p><b>Plan Type:</b> Annual</p>
-            <p><b>Car Problem:</b> Flat Tyres</p>
-            <p><b>Comments: </b> My car is so cool that it ice-creams</p>
-            <p><b>Adtional Repairs:</b> This section can only be added by Ger</p>
+            <p>Car Make: Ford</p>
+            <p>Car Model: Ka</p>
+            <p>Engine Type: Hybrid</p>
+            <p>Licence Details: 102abc</p>
+            <p>Plan Type: Annual</p>
+            <p>Issues: Flat Tyres</p>
+            <p>Comments: My car is so cool that it ice-creams</p>
+            <p>Adtional Repairs: This section can only be added by Ger</p>
 
             <div class="btn-dtls">
                 <a href="#" class="add-comment-btn"> Update Comment</a>
-                <a href="#" class="print-order-btn"> Print Order</a>
+                <a href="bill.php" class="print-order-btn"> Print Order</a>
             </div>
 
 

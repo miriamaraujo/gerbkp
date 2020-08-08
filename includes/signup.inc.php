@@ -15,7 +15,6 @@ if (isset($_POST['signup-submit'])) {
         header("Location: ../login.php?error?=invalidmailname");
         exit();
     }
-    // We check for an invalid username. In this case ONLY letters and numbers.
     else if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
         header("Location: ../login.php?error?=invalidname&mail=" . $usermail);
         exit();

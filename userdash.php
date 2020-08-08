@@ -1,5 +1,6 @@
 <?php
 session_start();
+include ('includes/usercheck.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,15 +26,15 @@ session_start();
             <li><a>+353 1 6333444</a> </li>
             <li><a href="about.php">About Us</a></li>
             <?php
-            if (isset($_SESSION['userId'])) {
+                if (isset($_SESSION['userId'])) {
+                    
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                    echo '<li><a href="includes/logout.inc.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>';
+                } else {
+                    echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
+                }
 
-                echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
-                echo '<li><a href="includes/logout.inc.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>';
-            } else {
-                echo '<li><a href="userdash.php"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile </a></li>';
-            }
-
-            ?>
+                ?>
             <li><a href="#" class="fa fa-facebook"></a>
                 <a href="#" class="fa fa-twitter"></a>
                 <a href="#" class="fa fa-instagram"></a></li>
@@ -47,57 +48,65 @@ session_start();
 
     <div class="user-prof">
         <img src="img/p4.jpg" alt="" width="90px" style="border-radius: 50%;">
-        <h4><?php echo  $_SESSION['userName'] ?></h4>
+        <?php
+        if (isset($_SESSION['userName'])) {
+            echo '<h4> ' . $_SESSION['userName'] . ' </h4>';
+        }
+        ?>
         <a href="userdash.php" class="home-btn"><i class="fa fa-home" aria-hidden="true"></i></a>
         <a href="profile.php" class="profile-btn">My Profile</a>
         <a href="newbooking.php" class="new-book">+ New Booking</a>
 
     </div>
 
-    <h3>My Profile</h3>
+
+    <h3>My Orders</h3>
     <div class="flex-container">
-        <!-- I need to create the functions to send the data into the table bookings
-        I might create a file just like the signup one  -->
-        <div class="details" id="update-prof" style="text-align: center;">
-            <h4>Add New Appointment</h4>
-            <form action="includes/booking.inc.php" method="POST">
-                <!-- I need to create function that fills it up some fields with user info from customers table -->
-
-                <input type="text" name="fname"  placeholder="Username"> <!-- this one works but the rest does not -->
-                <input type="text" name="umail" placeholder="Email">
-                <input type="text" name="uphone" placeholder="Phone">
-                <input type="text" name="problem" placeholder="Car Problem">
-                <input type="text" name="booktype"  placeholder="Booking Type">
-                <input type="date" name="bookdate" placeholder="Booking Date">
-                <input type="time" name="booktime" placeholder="Booking Time">
-                <input type="text" name="ucomments" placeholder="Comments">
+        <div class="order-box">
+            <h4>Flat Tyres</h4>
+            <p>Order Number: 102</p>
+            <p>Status: Booked</p>
+            <p>Booking Date: 10/12/2021 <span>- Time: 13:30pm</span></p>
 
 
-                <input type="submit" name="book-submit" value="Place Appointment">
+            <button><a href="order-details.php">+ Details</a></button>
+        </div>
+        <div class="order-box">
+            <h4>Overheating Engine</h4>
+            <p>Order Number: 153</p>
+            <p>Status: In Service</p>
+            <p>Booking Date: 10/12/2021 <span>- Time: 13:30pm</span></p>
 
 
-            </form>
+            <button><a href="order-details.php">+ Details</a></button>
+        </div>
+        <div class="order-box">
+            <h4>Windows Replacement</h4>
+            <p>Order Number: 102</p>
+            <p>Status: Booked</p>
+            <p>Booking Date: 10/12/2021 <span>- Time: 13:30pm</span></p>
+
+
+            <button><a href="order-details.php">+ Details</a></button>
+        </div>
+        <div class="order-box">
+            <h4>Car Wash and Polish</h4>
+            <p>Order Number: 153</p>
+            <p>Status: In Service</p>
+            <p>Booking Date: 10/12/2021 <span>- Time: 13:30pm</span></p>
+
+
+            <button><a href="order-details.php">+ Details</a></button>
         </div>
 
- <?php
-//   echo $_SESSION['service_type']
-?>
-
-
     </div>
-
-
-
-
-
-
     <div class="footer">
         <h4>Sign-Up to be updated</h4>
 
         <div class="footer-container">
             <form action="">
                 <input type="text" placeholder="Name and Last Surname">
-                <input type="text" placeholder="E-mail">
+                <input type="email" placeholder="E-mail">
                 <button>Submit</button>
             </form>
         </div>
@@ -116,7 +125,6 @@ session_start();
 
 
     </div>
-
     <script src="script.js"> </script>
 </body>
 

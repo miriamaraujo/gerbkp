@@ -10,8 +10,7 @@ if(isset($_POST['login-submit'])){
         exit();
     }
     else{
-        $sql = "SELECT * FROM customers WHERE u_name=? OR u_mail=?;";
-
+        $sql = "SELECT * FROM customers WHERE user_name=?;";
         $stmt = mysqli_stmt_init($conn); 
         if(!mysqli_stmt_prepare($stmt, $sql)){
         header("Location: ../login.php?error=sql");
@@ -19,34 +18,27 @@ if(isset($_POST['login-submit'])){
         }
 
         else{
-            mysqli_stmt_bind_param($stmt, "ss", $userMail, $userMail);
+            mysqli_stmt_bind_param($stmt, "s", $userMail);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if($row = mysqli_fetch_assoc($result)){
-                $pwdCheck = password_verify($userPwd, $row['u_pwd']);
+                $pwdCheck = password_verify($userPwd, $row['user_pwd']);
                 if($pwdCheck == false){
                     header("Location: ../login.php?error=wrongpwd");
                     exit();
                 }
                 else if($pwdCheck == true){
                    session_start();
-                   $_SESSION['userId'] = $row['id_user'];
-                   $_SESSION['userName'] = $row['u_name'];
-                   $_SESSION['userMail'] = $row['u_mail'];
-                   $_SESSION['userPhone'] = $row['u_phone'];
-                   $_SESSION['vehicleType'] = $row['vehicle_type'];
-                   $_SESSION['vehicleMake'] = $row['vehicle_make'];
-                   $_SESSION['vehicleEngine'] = $row['vehicle_engine'];
-                   $_SESSION['uAddress'] = $row['u_address'];
-                   $_SESSION['service_type'] = $row['service_type'];
+                   $_SESSION['userId'] = $row['user_id'];
+                   $_SESSION['userName'] = $row['user_name'];
 
-                   header("Location: ../userdash.php?login=success");
+                   header("Location: ../dashboard.php?login=success");
                     exit();
 
                 }
 
                 else{
-                    header("Location: ../login.php?error=wrong");
+                    header("Location: ../dashboard.php?error=wrong");
                     exit();
                 }
 
